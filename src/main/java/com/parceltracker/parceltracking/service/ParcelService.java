@@ -4,6 +4,9 @@ import com.parceltracker.parceltracking.domain.Parcel;
 import com.parceltracker.parceltracking.dto.ParcelDto;
 import com.parceltracker.parceltracking.exception.ParcelNotFoundException;
 import com.parceltracker.parceltracking.repository.ParcelRepository;
+import java.util.Collection;
+import java.util.List;
+import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +20,11 @@ public class ParcelService {
         this.parcelRepository = parcelRepository;
     }
 
-    public ParcelDto findByTrackingNumber(String trackingNumber) {
-        Parcel parcel = parcelRepository.findByTrackingNumber(trackingNumber)
-            .orElseThrow(() -> new ParcelNotFoundException(trackingNumber));
+    public List<ParcelDto> findByTrackingNumbers(Collection<String> trackingNumbers) {
+        Validate.notEmpty(trackingNumbers);
 
-        return ParcelDto.buildFromParcel(parcel);
+        List<Parcel> parcels= parcelRepository.findByTrackingNumbers(trackingNumbers);
+
+        return ParcelDto.buildFromParcels(parcels);
     }
 }

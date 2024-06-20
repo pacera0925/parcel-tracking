@@ -4,6 +4,8 @@ import com.parceltracker.parceltracking.domain.Parcel;
 import com.parceltracker.parceltracking.domain.ParcelStatus;
 import com.parceltracker.parceltracking.domain.SenderRecipientInfo;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
 
@@ -27,6 +29,12 @@ public class ParcelDto {
         dto.setStatus(parcel.getStatus());
         dto.setDescription(parcel.getDescription());
         return dto;
+    }
+
+    public static List<ParcelDto> buildFromParcels(List<Parcel> parcels) {
+        List<ParcelDto> parcelDTOs = new ArrayList<>();
+        parcels.forEach(parcel -> parcelDTOs.add(ParcelDto.buildFromParcel(parcel)));
+        return parcelDTOs;
     }
 
     @Override
@@ -110,5 +118,13 @@ public class ParcelDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSenderAddress() {
+        return this.sender.getAddress();
+    }
+
+    public String getReceiverAddress() {
+        return this.receiver.getAddress();
     }
 }

@@ -2,17 +2,15 @@ package com.parceltracker.parceltracking.domain;
 
 public enum MessageIntent {
 
-    PARCEL_STATUS_INQUIRY("ParcelStatusInquiry"),
-    UNSUPPORTED_REQUEST("UnsupportedRequest"),
-    GENERIC_RESPONSE("GenericResponse");
+    PARCEL_STATUS_INQUIRY,
+    UNSUPPORTED_REQUEST,
+    GENERIC_RESPONSE;
 
-    private final String label;
-
-    MessageIntent(String label) {
-        this.label = label;
-    }
-
-    public String getLabel() {
-        return label;
+    public static MessageIntent getEnumValue(String intent) {
+        try {
+            return MessageIntent.valueOf(intent);
+        } catch (IllegalArgumentException e) {
+            return GENERIC_RESPONSE;
+        }
     }
 }
