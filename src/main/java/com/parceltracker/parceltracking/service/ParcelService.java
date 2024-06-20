@@ -2,7 +2,6 @@ package com.parceltracker.parceltracking.service;
 
 import com.parceltracker.parceltracking.domain.Parcel;
 import com.parceltracker.parceltracking.dto.ParcelDto;
-import com.parceltracker.parceltracking.exception.ParcelNotFoundException;
 import com.parceltracker.parceltracking.repository.ParcelRepository;
 import java.util.Collection;
 import java.util.List;
