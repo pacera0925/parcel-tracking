@@ -34,3 +34,4 @@ A very simple and straightforward chat-bot that utilizes openAI in providing hum
     - Adjust paths and database names as per your project setup.
     - Update the `application.properties` to reflect the correct api from openAI
     - model used in config/property is `gpt-3.5-turbo`
+    - Don't forget to run `mvn clean install` 
