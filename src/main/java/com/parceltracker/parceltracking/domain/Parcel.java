@@ -30,6 +30,9 @@ public class Parcel extends VersionedEntity {
     @Column(nullable = false)
     private ParcelStatus status;
 
+    @Column
+    private String description;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -106,5 +109,13 @@ public class Parcel extends VersionedEntity {
 
     public void setStatus(ParcelStatus status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

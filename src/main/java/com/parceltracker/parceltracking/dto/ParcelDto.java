@@ -15,6 +15,7 @@ public class ParcelDto {
     private LocalDateTime shippingDateTime;
     private LocalDateTime deliveryDateTime;
     private ParcelStatus status;
+    private String description;
 
     public static ParcelDto buildFromParcel(Parcel parcel) {
         ParcelDto dto = new ParcelDto();
@@ -24,6 +25,7 @@ public class ParcelDto {
         dto.setShippingDateTime(parcel.getShippingDateTime());
         dto.setDeliveryDateTime(parcel.getDeliveryDateTime());
         dto.setStatus(parcel.getStatus());
+        dto.setDescription(parcel.getDescription());
         return dto;
     }
 
@@ -102,4 +104,11 @@ public class ParcelDto {
         return status;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
