@@ -1,6 +1,6 @@
 package com.parceltracker.parceltracking.config;
 
-import com.parceltracker.parceltracking.filter.ApiKeyAuthenticationFilter;
+import com.parceltracker.parceltracking.security.filter.AuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,13 +10,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-public class SecurityConfig  {
+public class SecurityConfig   {
 
-    private final ApiKeyAuthenticationFilter apiKeyAuthenticationFilter;
+    private final AuthenticationFilter authenticationFilter;
 
     @Autowired
-    public SecurityConfig(ApiKeyAuthenticationFilter apiKeyAuthenticationFilter) {
-        this.apiKeyAuthenticationFilter = apiKeyAuthenticationFilter;
+    public SecurityConfig(AuthenticationFilter authenticationFilter) {
+        this.authenticationFilter = authenticationFilter;
     }
 
     @Bean
@@ -24,10 +24,10 @@ public class SecurityConfig  {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/api/v1/**").authenticated()
                 .anyRequest().permitAll()
             )
-            .addFilterBefore(apiKeyAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
