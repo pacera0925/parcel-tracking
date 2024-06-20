@@ -23,7 +23,7 @@ public class ParcelService {
     public List<ParcelDto> findByTrackingNumbers(Collection<String> trackingNumbers) {
         Validate.notEmpty(trackingNumbers);
 
-        List<Parcel> parcels= parcelRepository.findByTrackingNumbers(trackingNumbers);
+        List<Parcel> parcels= parcelRepository.findByTrackingNumber(trackingNumbers);
 
         return ParcelDto.buildFromParcels(parcels);
     }

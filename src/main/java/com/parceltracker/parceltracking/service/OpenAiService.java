@@ -45,14 +45,15 @@ public class OpenAiService {
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", model);
-        requestBody.put("prompt", openAiPromptService.generateIntentPrompt(userMessage));
+        requestBody.put("messages", openAiPromptService.generateIntentMessagesParam(userMessage));
         requestBody.put("max_tokens", 10);
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
         JSONObject responseBody = new JSONObject(response.getBody());
-        String intent = responseBody.getJSONArray("choices").getJSONObject(0).getString("text").trim();
+        String intent = responseBody.getJSONArray("choices").getJSONObject(0).getJSONObject("message")
+            .getString("content").trim();
 
         logger.debug("Parsed intent: {}", intent);
         return MessageIntent.getEnumValue(intent);
@@ -66,14 +67,14 @@ public class OpenAiService {
 
         JSONObject requestBody = new JSONObject();
         requestBody.put("model", model);
-        requestBody.put("prompt", openAiPromptService.generateIntentPrompt(openAiPromptService.generateStatusInquiryPrompt(trackingNumbers, parcels)));
-        requestBody.put("max_tokens", 150);
+        requestBody.put("messages", openAiPromptService.generateStatusInquiryPrompt(trackingNumbers, parcels));
 
         HttpEntity<String> entity = new HttpEntity<>(requestBody.toString(), headers);
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
 
         JSONObject responseBody = new JSONObject(response.getBody());
-        String chatResponse = responseBody.getJSONArray("choices").getJSONObject(0).getString("text").trim();
+        String chatResponse = responseBody.getJSONArray("choices").getJSONObject(0).getJSONObject("message")
+            .getString("content").trim();
 
         logger.debug("Response: {}", chatResponse);
         return chatResponse;

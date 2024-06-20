@@ -41,10 +41,10 @@ public class ChatService {
                     List<ParcelDto> parcels = parcelService.findByTrackingNumbers(trackingNumbers);
                     return openAiService.getParcelStatusInquiryResponse(trackingNumbers, parcels);
                 case UNSUPPORTED_REQUEST:
-                    return "Sorry, we do not support this request. Please ask for a parcel status update by proving the tracking number (TRK####).";
+                    return "Sorry, we do not support this request. Please ask for a parcel status update by providing the tracking number (TRK####).";
                 case GENERIC_RESPONSE:
                 default:
-                    return "I'm here to help with parcel tracking. Please provide a tracking number for status updates.";
+                    return "I'm always happy to assist you in parcel tracking. Please don't hesitate in providing the tracking number.";
             }
         } catch (Exception e) {
             logger.error("Something went wrong {}", e.getMessage(), e);

@@ -60,7 +60,10 @@ public class ParcelDto {
             .add("trackingNumber='" + trackingNumber + "'")
             .add("sender=" + sender)
             .add("receiver=" + receiver)
+            .add("shippingDateTime=" + shippingDateTime)
+            .add("deliveryDateTime=" + deliveryDateTime)
             .add("status=" + status)
+            .add("description='" + description + "'")
             .toString();
     }
 

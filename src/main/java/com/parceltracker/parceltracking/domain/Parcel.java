@@ -1,8 +1,12 @@
 package com.parceltracker.parceltracking.domain;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.StringJoiner;
@@ -15,10 +19,14 @@ public class Parcel extends VersionedEntity {
 
     @Embedded
     @Column(nullable = false)
+    @AttributeOverride(name = "name", column = @Column(name = "sender_name"))
+    @AttributeOverride(name = "address", column = @Column(name = "sender_address"))
     private SenderRecipientInfo sender;
 
     @Embedded
     @Column(nullable = false)
+    @AttributeOverride(name = "name", column = @Column(name = "receiver_name"))
+    @AttributeOverride(name = "address", column = @Column(name = "receiver_address"))
     private SenderRecipientInfo receiver;
 
     @Column
@@ -28,6 +36,7 @@ public class Parcel extends VersionedEntity {
     private LocalDateTime deliveryDateTime;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ParcelStatus status;
 
     @Column
